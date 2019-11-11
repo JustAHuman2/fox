@@ -6,14 +6,22 @@ import java.util.List;
 public class Group {
 
 	private int id;
-	private final List<Student> students = new ArrayList<>(20);
+	private List<Student> students = new ArrayList<>();
 
 	public Group(int id) {
+		this.id = id;
+	}
+	
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	public int getId() {
 		return id;
+	}
+	
+	public void setStudents(List<Student> students) {
+		this.students = students;
 	}
 
 	public List<Student> getStudents() {

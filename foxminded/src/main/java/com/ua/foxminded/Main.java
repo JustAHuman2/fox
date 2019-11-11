@@ -9,46 +9,38 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import com.ua.foxminded.domain.Lesson;
-import com.ua.foxminded.domain.LessonTime;
-import com.ua.foxminded.domain.Student;
+import com.ua.foxminded.domain.Schedule;
 import com.ua.foxminded.domain.University;
-
-import schedule.Schedule;
+import com.ua.foxminded.domain.UniversityUtils;
 
 public class Main {
 
 	public static void main(String[] args) {
-	University university = new University();
+		UniversityUtils utils = new UniversityUtils();
+		University university = new University(utils.generateTeachers(), utils.generateGroups(101, 111),
+				utils.generateAuditories(1, 11));
+		university.setSubjects(university.getTeachers().stream().map(t -> t.getSubject()).collect(toList()));
+		utils.generateStudents().forEach(s -> utils.assignToGroup(s, university.getGroups()));
+		Schedule schedule = new Schedule();
+		List<Lesson> lessons = schedule.getSchedule(
+				utils.getAcademicDays(LocalDate.of(2019, 9, 01), LocalDate.of(2019, 12, 30)), schedule.getDaySchedule(),
+				university.getAuditories());
+		lessons = schedule.setTeachers(lessons, university.getTeachers(), university.getAuditories());
+		lessons = schedule.setGroups(lessons, university.getGroups(), university.getAuditories());
+		university.setLessons(lessons);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		Menu menu = new Menu();
+		Scanner scanner = new Scanner(System.in);
+		int number = 0;
 		try {
-			university.setTeachers(university.generateTeachers("teachers.txt"));
-			university.setSubjects(university.getTeachers().stream().map(t -> t.getSubject()).collect(toList()));		
-			university.setGroups(university.generateGroups("groups.txt"));
-			List<Student> students = university.generateStudents("students.txt");
-			students.forEach(s -> university.assignToGroup(s, university.getGroups()));
-			university.setAuditories(university.generateAuditories("auditories.txt"));
-			Schedule schedule = new Schedule();
-			List<LessonTime> daySchedule = schedule.getDaySchedule();
-			List<LocalDate> academicDays = university.getAcademicDays(LocalDate.of(2019, 9, 01),
-					LocalDate.of(2019, 12, 30));
-			List<Lesson> lessons = schedule.getSchedule(academicDays, daySchedule, university.getAuditories());
-			lessons = schedule.setTeachers(lessons, university.getTeachers(), university.getAuditories());
-			lessons = schedule.setGroups(lessons, university.getGroups(), university.getAuditories());
-			university.setLessons(lessons);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			Menu menu = new Menu();
-			Scanner scanner = new Scanner(System.in);
-			int number = 0;
 			while (true) {
 				System.out.println(Menu.MENU);
 				number = scanner.nextInt();
 				if (number == 6) {
 					break;
 				}
-				System.out.println(menu.showMenu(number, university.getTeachers(), university.getSubjects(), university.getGroups()));
-				if (number == 4 || number == 5) {
-					String input = reader.readLine();
-					System.out.println(menu.executeCommand(number, input, university.getTeachers(), university.getSubjects(), university.getGroups()));
-				}
+				System.out.println(menu.showMenu(number));
+				System.out.println(menu.executeCommand(number, reader.readLine(), university));
 			}
 			scanner.close();
 			reader.close();

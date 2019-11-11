@@ -17,9 +17,58 @@ public class Lesson {
 		this.auditory = auditory;
 	}
 
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setAuditory(Auditory auditory) {
+		this.auditory = auditory;
+	}
+
+	public Auditory getAuditory() {
+		return auditory;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setLessonTime(LessonTime lessonTime) {
+		this.lessonTime = lessonTime;
+	}
+
+	public LessonTime getLessonTime() {
+		return lessonTime;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("%-26s", teacher) + auditory + ", group:" + (null == group ? "null":group.getId() + " ") + ", date:" + date + ", " + lessonTime;
+		return String.format("%-26s", teacher) + auditory + ", group:" + (null == group ? "null" : group.getId() + " ")
+				+ ", date:" + date + ", " + lessonTime;
 	}
 
 	@Override
@@ -42,41 +91,5 @@ public class Lesson {
 			return true;
 		}
 		return false;
-	}
-
-	public void setSubject(Subject subject) {
-		this.subject = subject;
-	}
-
-	public Subject getSubject() {
-		return subject;
-	}
-
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
-	}
-
-	public Teacher getTeacher() {
-		return teacher;
-	}
-
-	public Auditory getAuditory() {
-		return auditory;
-	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public LessonTime getLessonTime() {
-		return lessonTime;
-	}
-
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-	public Group getGroup() {
-		return group;
 	}
 }

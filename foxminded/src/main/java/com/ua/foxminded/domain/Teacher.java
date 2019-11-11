@@ -1,12 +1,8 @@
 package com.ua.foxminded.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Teacher {
 
 	private String name;
-	private List<Subject> subjects = new ArrayList<>();
 	private Subject subject;
 
 	public Teacher(String name, Subject subject) {
@@ -14,24 +10,42 @@ public class Teacher {
 		this.subject = subject;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
 
 	public Subject getSubject() {
 		return subject;
 	}
 
-	public List<Subject> getSubjects() {
-		return subjects;
-	}
-	
-	public int hashCode() {
-		return name.hashCode() * 31 + ((subjects == null) ? 0 : subjects.hashCode());
+	@Override
+	public String toString() {
+		return String.format("%-16s %-11s", name, subject);
 	}
 
 	@Override
-	public String toString() {
-		return  String.format("%-16s %-11s", name, subject);
+	public int hashCode() {
+		return name.hashCode() * 31 + ((subject == null) ? 0 : subject.hashCode());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof Teacher) || this.hashCode() != obj.hashCode())
+			return false;
+		if (this == obj)
+			return true;
+		Teacher thatTeacher = (Teacher) obj;
+		if ((this.getName() == thatTeacher.getName()) && this.getSubject() == thatTeacher.getSubject()) {
+			return true;
+		}
+		return false;
 	}
 }

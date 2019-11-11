@@ -1,4 +1,4 @@
-package schedule;
+package com.ua.foxminded.domain;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

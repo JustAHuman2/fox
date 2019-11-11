@@ -20,14 +20,15 @@ public class Student {
 	public int getGroupId() {
 		return groupId;
 	}
-
-	public int hashCode() {
-		return name.hashCode() * 31 + groupId * 13;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "Student [" + name + ", groupId:" + groupId + "]";
+	}
+	
+	@Override
+	public int hashCode() {
+		return name.hashCode() * 31 + groupId * 13;
 	}
 
 	@Override
