@@ -9,9 +9,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import com.ua.foxminded.domain.Lesson;
-import com.ua.foxminded.domain.Schedule;
 import com.ua.foxminded.domain.University;
-import com.ua.foxminded.domain.UniversityUtils;
+import com.ua.foxminded.utils.Schedule;
+import com.ua.foxminded.utils.UniversityUtils;
 
 public class Main {
 
@@ -36,7 +36,7 @@ public class Main {
 			while (true) {
 				System.out.println(Menu.MENU);
 				number = scanner.nextInt();
-				if (number == 6) {
+				if (number == 8) {
 					break;
 				}
 				System.out.println(menu.showMenu(number));

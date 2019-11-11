@@ -1,4 +1,4 @@
-package com.ua.foxminded.domain;
+package com.ua.foxminded.utils;
 
 import static java.util.Arrays.asList;
 import static java.util.concurrent.ThreadLocalRandom.current;

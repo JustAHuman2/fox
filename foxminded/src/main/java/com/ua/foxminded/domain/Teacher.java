@@ -10,6 +10,10 @@ public class Teacher {
 		this.subject = subject;
 	}
 
+	public Teacher(String name) {
+		this.name = name;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -28,24 +32,21 @@ public class Teacher {
 
 	@Override
 	public String toString() {
-		return String.format("%-16s %-11s", name, subject);
+		return name + ", Subjects: " + subject;
 	}
 
 	@Override
 	public int hashCode() {
-		return name.hashCode() * 31 + ((subject == null) ? 0 : subject.hashCode());
+		return name.hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || !(obj instanceof Teacher) || this.hashCode() != obj.hashCode())
+		if (obj == null || !(obj instanceof Teacher))
 			return false;
 		if (this == obj)
 			return true;
 		Teacher thatTeacher = (Teacher) obj;
-		if ((this.getName() == thatTeacher.getName()) && this.getSubject() == thatTeacher.getSubject()) {
-			return true;
-		}
-		return false;
+		return this.getName() == thatTeacher.getName();
 	}
 }

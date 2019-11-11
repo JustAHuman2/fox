@@ -10,7 +10,9 @@ import com.ua.foxminded.domain.University;
 public class Menu {
 
 	public static final String MENU = "Enter command:" + lineSeparator() + "1 Get list" + lineSeparator()
-			+ "2 Get group schedule" + lineSeparator() + "3 Get teachers schedule" + lineSeparator() + "4 Exit";
+			+ "2 Get group schedule" + lineSeparator() + "3 Get teachers schedule" + lineSeparator() + "4 Add teacher"
+			+ lineSeparator() + "5 Delete teacher" + lineSeparator() + "6 Add student" + lineSeparator()
+			+ "7 Delete student" + lineSeparator() + "8 Exit";
 
 	public String showMenu(int number) {
 		switch (number) {
@@ -20,6 +22,13 @@ public class Menu {
 			return "Enter group ID:";
 		case 3:
 			return "Enter teacher name:";
+		case 4:
+			return "Enter teacher name and subject:";
+		case 5:
+			return "Enter teacher name:";
+		case 6:
+		case 7:
+			return "Enter student name and group ID:";
 		default:
 			return "Wrong command";
 		}
@@ -46,6 +55,18 @@ public class Menu {
 			return teacher == null ? "Teacher not found"
 					: university.getTeacherSchedule(teacher, LocalDate.of(2019, 9, 01), LocalDate.of(2019, 12, 30))
 							.toString();
+		case 4:
+			return university.addTeacher(line) ? "Teacher already exists" : "Teacher added";
+		case 5:
+			return university.deleteTeacher(line) ? "Teacher deleted" : "Teacher not found";
+		case 6:
+			Group currentGroup = university.getGroup(line);
+			return currentGroup == null ? "Group not found"
+					: university.addStudent(line, currentGroup) ? "Student added" : "Student already exists";
+		case 7:
+			Group thisGroup = university.getGroup(line);
+			return thisGroup == null ? "Group not found"
+					: university.deleteStudent(line, thisGroup) ? "Student deleted" : "Student not found";
 		default:
 			return "Wrong command";
 		}

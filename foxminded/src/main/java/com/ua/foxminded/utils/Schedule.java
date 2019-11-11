@@ -1,4 +1,4 @@
-package com.ua.foxminded.domain;
+package com.ua.foxminded.utils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

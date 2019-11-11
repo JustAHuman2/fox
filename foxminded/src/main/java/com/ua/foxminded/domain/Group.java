@@ -11,7 +11,7 @@ public class Group {
 	public Group(int id) {
 		this.id = id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -19,7 +19,7 @@ public class Group {
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setStudents(List<Student> students) {
 		this.students = students;
 	}
@@ -40,9 +40,6 @@ public class Group {
 		if (this == obj)
 			return true;
 		Group thatGroup = (Group) obj;
-		if (this.getId() == (thatGroup.getId())) {
-			return true;
-		}
-		return false;
+		return this.getId() == thatGroup.getId();
 	}
 }
