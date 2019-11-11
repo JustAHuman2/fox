@@ -8,7 +8,6 @@ public class LessonTime {
 	private LocalTime endTime;
 
 	public LessonTime(LocalTime startTime, LocalTime endTime) {
-		super();
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
@@ -19,5 +18,10 @@ public class LessonTime {
 
 	public LocalTime getEndTime() {
 		return endTime;
+	}
+
+	@Override
+	public String toString() {
+		return startTime + "-" + endTime;
 	}
 }

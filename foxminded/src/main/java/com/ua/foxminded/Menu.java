@@ -1,23 +1,29 @@
 package com.ua.foxminded;
 
 import static java.lang.System.lineSeparator;
+import java.time.LocalDate;
+import java.util.List;
+import com.ua.foxminded.domain.Group;
+import com.ua.foxminded.domain.Subject;
+import com.ua.foxminded.domain.Teacher;
+import com.ua.foxminded.domain.University;
 
 public class Menu {
 
 	public static final String MENU = "Enter command:" + lineSeparator() + "1 Get subjects" + lineSeparator()
-			+ "2 Get groups" + lineSeparator() + "3 Get group schedule" + lineSeparator() + "4 Get teachers"
+			+ "2 Get groups" + lineSeparator() + "3 Get teachers" + lineSeparator() + "4 Get group schedule"
 			+ lineSeparator() + "5 Get teachers schedule" + lineSeparator() + "6 Exit";
 
-	public String showMenu(int number) {
+	public String showMenu(int number, List<Teacher> teachers, List<Subject> subjects, List<Group> groups) {
 		switch (number) {
 		case 1:
-			return "";
+			return subjects.toString();
 		case 2:
-			return "";
+			return groups.toString();
 		case 3:
-			return "Enter group ID:";
+			return teachers.toString();
 		case 4:
-			return "";
+			return "Enter group ID:";
 		case 5:
 			return "Enter teacher name:";
 		default:
@@ -25,34 +31,27 @@ public class Menu {
 		}
 	}
 
-//	public String executeCommand(int number, String line) {
-//		switch (number) {
-//		case 1:
-//			return groupDao.getGroupsByStudentsCount(Integer.parseInt(line)).toString();
-//		case 2:
-//			return studentDao.getStudentsFromCourse(line).toString();
-//		case 3:
-//			Student student = new Student(line.substring(0, line.indexOf(" ")), line.substring(line.indexOf(" ") + 1));
-//			studentDao.create(student);
-//			return "New student added with id:" + student.getId();
-//		case 4:
-//			studentDao.deleteStudent(Integer.parseInt(line));
-//			return "Student deleted";
-//		case 5:
-//			courseDao.addStudent(parseStudentId(line), parseCourseId(line));
-//			return "Student added";
-//		case 6:
-//			studentDao.deleteStudentFromCourse(parseStudentId(line), parseCourseId(line));
-//			return "Student deleted";
-//		}
-//		return "Wrong command";
-//	}
-
-	private int parseStudentId(String line) {
-		return Integer.parseInt(line.substring(0, line.indexOf(" ")));
+	public String executeCommand(int number, String line, List<Teacher> teachers, List<Subject> subjects,
+			List<Group> groups) {
+		University university = new University(teachers, subjects, groups);
+		switch (number) {
+		case 4:
+			return university
+					.getGroupSchedule(parseGroup(line, groups), LocalDate.of(2019, 9, 01), LocalDate.of(2019, 12, 30))
+					.toString();
+		case 5:
+			return university.getTeacherSchedule(parseTeacher(line, teachers), LocalDate.of(2019, 9, 01),
+					LocalDate.of(2019, 12, 30)).toString();
+		default:
+			return "Wrong command";
+		}
 	}
 
-	private int parseCourseId(String line) {
-		return Integer.parseInt(line.substring(line.indexOf(" ") + 1));
+	private Group parseGroup(String line, List<Group> groups) {
+		return groups.stream().filter(g -> g.getId() == Integer.parseInt(line)).findAny().get();
+	}
+
+	private Teacher parseTeacher(String line, List<Teacher> teachers) {
+		return teachers.stream().filter(t -> t.getName().equals(line)).findAny().get();
 	}
 }

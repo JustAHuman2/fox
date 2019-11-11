@@ -1,16 +1,12 @@
 package com.ua.foxminded.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
 
 	private int id;
-	private List<Student> students;
-
-	public Group(int id, List<Student> students) {
-		this.id = id;
-		this.students = students;
-	}
+	private final List<Student> students = new ArrayList<>(20);
 
 	public Group(int id) {
 		this.id = id;
@@ -25,7 +21,20 @@ public class Group {
 	}
 
 	@Override
-	public int hashCode() {
-		return 31 * id + ((students == null) ? 0 : students.hashCode());
+	public String toString() {
+		return "Group [id:" + id + ", students:" + students + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof Group))
+			return false;
+		if (this == obj)
+			return true;
+		Group thatGroup = (Group) obj;
+		if (this.getId() == (thatGroup.getId())) {
+			return true;
+		}
+		return false;
 	}
 }

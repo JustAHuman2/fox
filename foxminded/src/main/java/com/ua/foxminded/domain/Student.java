@@ -3,7 +3,7 @@ package com.ua.foxminded.domain;
 public class Student {
 
 	private String name;
-	private Group group;
+	private int groupId;
 
 	public Student(String name) {
 		this.name = name;
@@ -13,20 +13,33 @@ public class Student {
 		return name;
 	}
 
-	public void setGroup(Group group) {
-		this.group = group;
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
 	}
 
-	public Group getGroup() {
-		return group;
+	public int getGroupId() {
+		return groupId;
 	}
 
 	public int hashCode() {
-		return name.hashCode() * 31 + ((group == null) ? 0 : group.hashCode()) * 13;
+		return name.hashCode() * 31 + groupId * 13;
 	}
 
 	@Override
 	public String toString() {
-		return "Student [" + name + ", groupId:" + group + "]";
+		return "Student [" + name + ", groupId:" + groupId + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof Student) || (this.hashCode() != obj.hashCode()))
+			return false;
+		if (this == obj)
+			return true;
+		Student thatStudent = (Student) obj;
+		if (this.getName().equals(thatStudent.getName())) {
+			return true;
+		}
+		return false;
 	}
 }
